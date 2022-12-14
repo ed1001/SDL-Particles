@@ -3,32 +3,38 @@
 //
 
 #include "Swarm.h"
-#include "util.h"
 
-Swarm::Swarm(int nParticles) {
-    this->nParticles = nParticles;
-    particles = new Particle[nParticles];
+Swarm::Swarm() {
+    particles = new Particle[N_PARTICLES];
 }
 
-Swarm::~Swarm() {
+Swarm::~Swarm() = default;
 
-}
+void Swarm::animate() const {
+    for (int i = 0; i < N_PARTICLES; ++i) {
+        util::Position &position = particles[i].position;
+        util::Velocity &velocity = particles[i].velocity;
+        std::vector<util::Position> &tail = particles[i].tail;
+        tail.push_back({.x =  position.x, .y =  position.y});
 
-void Swarm::animate() {
-    for (int i = 0; i < nParticles; ++i) {
-        Particle *p = &particles[i];
-        p->x += p->velocity.x;
-        p->y += p->velocity.y;
-        bool outOfXBounds = p->x < 0 || p->x > ed::SCREEN_WIDTH;
-        bool outOfYBounds = p->y < 0 || p->y > ed::SCREEN_HEIGHT;
+        if (tail.size() > Particle::TAIL_LENGTH) {
+            rotate(tail.begin(), tail.begin() + 1, tail.end());
+            tail.pop_back();
+        }
+
+        position.x += velocity.x;
+        position.y += velocity.y;
+
+        bool outOfXBounds = position.x < 0 || position.x > util::SCREEN_WIDTH;
+        bool outOfYBounds = position.y < 0 || position.y > util::SCREEN_HEIGHT;
 
         if (outOfXBounds) {
-            p->velocity.x = -p->velocity.x;
-            p->x += p->velocity.x * 2;
+            velocity.x = -velocity.x;
+            position.x += velocity.x * 2;
         }
         if (outOfYBounds) {
-            p->velocity.y = -p->velocity.y;
-            p->y += p->velocity.y * 2;
+            velocity.y = -velocity.y;
+            position.y += velocity.y * 2;
         }
     }
 }

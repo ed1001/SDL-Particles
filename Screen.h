@@ -2,14 +2,24 @@
 // Created by Edward Phillips on 05/12/2022.
 //
 
-#ifndef UNTITLED_SCREEN_H
-#define UNTITLED_SCREEN_H
+#pragma once
 
 #include <SDL.h>
 
 class Screen {
+private:
+    int m_height;
+    int m_width;
+    SDL_Window *m_window = nullptr;
+    SDL_Event m_event{};
+
 public:
-    Screen(int height_, int width_);
+    SDL_Renderer *renderer = nullptr;
+    SDL_Texture *texture = nullptr;
+    Uint32 *pixelBuffer = nullptr;
+
+public:
+    Screen(int height, int width);
 
     ~Screen();
 
@@ -17,19 +27,8 @@ public:
 
     bool processEvents();
 
-    void setPixel(int x, int y, uint8_t r, uint8_t g, uint8_t b, uint8_t alpha = 255) const;
+    void setPixel(int x, int y, uint8_t r, uint8_t g, uint8_t b, uint8_t alpha = 0xff) const;
 
-    SDL_Renderer *renderer = nullptr;
-    SDL_Texture *texture = nullptr;
-    Uint32 *pixelBuffer = nullptr;
-
-private:
     void update() const;
-
-    int height;
-    int width;
-    SDL_Window *window = nullptr;
-    SDL_Event event{};
 };
 
-#endif //UNTITLED_SCREEN_H

@@ -60,13 +60,6 @@ build CMakeFiles/untitled.dir/Screen.cpp.o: CXX_COMPILER__untitled_Debug /Users/
   OBJECT_DIR = CMakeFiles/untitled.dir
   OBJECT_FILE_DIR = CMakeFiles/untitled.dir
 
-build CMakeFiles/untitled.dir/Rectangle.cpp.o: CXX_COMPILER__untitled_Debug /Users/edwardphillips/CLionProjects/SDL/Rectangle.cpp || cmake_object_order_depends_target_untitled
-  DEP_FILE = CMakeFiles/untitled.dir/Rectangle.cpp.o.d
-  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk -fcolor-diagnostics -F /Library/Frameworks/ -std=gnu++17
-  INCLUDES = -isystem /Library/Frameworks/SDL2.framework/Headers -iframework /Library/Frameworks
-  OBJECT_DIR = CMakeFiles/untitled.dir
-  OBJECT_FILE_DIR = CMakeFiles/untitled.dir
-
 build CMakeFiles/untitled.dir/Swarm.cpp.o: CXX_COMPILER__untitled_Debug /Users/edwardphillips/CLionProjects/SDL/Swarm.cpp || cmake_object_order_depends_target_untitled
   DEP_FILE = CMakeFiles/untitled.dir/Swarm.cpp.o.d
   FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk -fcolor-diagnostics -F /Library/Frameworks/ -std=gnu++17
@@ -96,7 +89,7 @@ build CMakeFiles/untitled.dir/Particle.cpp.o: CXX_COMPILER__untitled_Debug /User
 #############################################
 # Link the executable untitled
 
-build untitled: CXX_EXECUTABLE_LINKER__untitled_Debug CMakeFiles/untitled.dir/main.cpp.o CMakeFiles/untitled.dir/Screen.cpp.o CMakeFiles/untitled.dir/Rectangle.cpp.o CMakeFiles/untitled.dir/Swarm.cpp.o CMakeFiles/untitled.dir/util.cpp.o CMakeFiles/untitled.dir/Particle.cpp.o
+build untitled: CXX_EXECUTABLE_LINKER__untitled_Debug CMakeFiles/untitled.dir/main.cpp.o CMakeFiles/untitled.dir/Screen.cpp.o CMakeFiles/untitled.dir/Swarm.cpp.o CMakeFiles/untitled.dir/util.cpp.o CMakeFiles/untitled.dir/Particle.cpp.o
   FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk
   LINK_FLAGS = -F /Library/Frameworks/ -framework SDL2
   OBJECT_DIR = CMakeFiles/untitled.dir
