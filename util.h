@@ -7,9 +7,19 @@
 
 #include <random>
 
-namespace ed {
+namespace util {
     const size_t SCREEN_WIDTH = 1200;
     const size_t SCREEN_HEIGHT = 900;
+
+    struct Position {
+        double x;
+        double y;
+    };
+    struct Velocity {
+        double v;
+        double x;
+        double y;
+    };
 
     double getRand(double rangeStart, double rangeEnd);
 }

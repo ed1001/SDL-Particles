@@ -2,25 +2,20 @@
 // Created by Edward Phillips on 11/12/2022.
 //
 
-#ifndef UNTITLED_SWARM_H
-#define UNTITLED_SWARM_H
+#pragma once
 
 #include "util.h"
 #include "Particle.h"
 
 class Swarm {
 public:
-    int nParticles;
+    static const int N_PARTICLES = 10000;
     Particle *particles;
 
 public:
-    explicit Swarm(int nParticles);
+    explicit Swarm();
 
     virtual ~Swarm();
 
-    void animate();
-
+    void animate() const;
 };
-
-
-#endif //UNTITLED_SWARM_H
