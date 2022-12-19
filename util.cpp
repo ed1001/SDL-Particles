@@ -11,3 +11,7 @@ double util::getRand(double rangeStart, double rangeEnd) {
 
     return distr(gen);
 }
+
+bool util::outOfBounds(int x, int y, int width, int height) {
+    return x < 0 || x > width || y < 0 || y > height;
+}

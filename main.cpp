@@ -22,9 +22,14 @@ int main() {
         for (int i = 0; i < Swarm::N_PARTICLES; ++i) {
             Particle &particle = swarm.particles[i];
             util::Position &position = particle.position;
-            std::vector<util::Position> &tail = particle.tail;
 
-            screen.setPixel(int(position.x), int(position.y), red, green, 255);
+            screen.setPixel(int(position.x), int(position.y), red, green, blue);
+
+            if (!Swarm::RENDER_TAIL) {
+                continue;
+            }
+            
+            std::vector<util::Position> &tail = particle.tail;
 
             for (int j = 0; j < tail.size(); ++j) {
                 int alpha = 255 / tail.size() * j;
@@ -35,6 +40,7 @@ int main() {
 
         screen.update();
         swarm.animate();
+        screen.boxBlur();
 
         if (!screen.processEvents()) break;
     }

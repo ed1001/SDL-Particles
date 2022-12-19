@@ -2,14 +2,12 @@
 // Created by Edward Phillips on 11/12/2022.
 //
 
-#ifndef UNTITLED_UTIL_H
-#define UNTITLED_UTIL_H
-
+#pragma once
 #include <random>
 
 namespace util {
-    const size_t SCREEN_WIDTH = 1200;
-    const size_t SCREEN_HEIGHT = 900;
+    const int SCREEN_WIDTH = 1200;
+    const int SCREEN_HEIGHT = 900;
 
     struct Position {
         double x;
@@ -22,6 +20,6 @@ namespace util {
     };
 
     double getRand(double rangeStart, double rangeEnd);
-}
 
-#endif //UNTITLED_UTIL_H
+    bool outOfBounds(int x, int y, int width, int height);
+}

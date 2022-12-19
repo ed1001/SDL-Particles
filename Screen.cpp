@@ -4,6 +4,8 @@
 
 #include <iostream>
 #include "Screen.h"
+#include "util.h"
+
 
 Screen::Screen(int height, int width) : m_height(height), m_width(width) {
     SDL_Init(SDL_INIT_VIDEO);
@@ -13,6 +15,7 @@ Screen::Screen(int height, int width) : m_height(height), m_width(width) {
     texture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_STATIC, m_width, m_height);
     SDL_SetTextureBlendMode(texture, SDL_BLENDMODE_BLEND);
     pixelBuffer = new Uint32[m_width * m_height];
+    blurBuffer = new Uint32[m_width * m_height];
     SDL_RenderClear(renderer);
     clear();
 }
@@ -30,7 +33,7 @@ void Screen::update() const {
     SDL_UpdateTexture(texture, nullptr, pixelBuffer, m_width * sizeof(Uint32));
     SDL_RenderCopy(renderer, texture, nullptr, nullptr);
     SDL_RenderPresent(renderer);
-    clear();
+//    clear();
 }
 
 bool Screen::processEvents() {
@@ -42,7 +45,7 @@ bool Screen::processEvents() {
 void Screen::setPixel(int x, int y, uint8_t r, uint8_t g, uint8_t b, uint8_t alpha) const {
     int pixelBufferIndex = x + y * m_width;
 
-    if (pixelBufferIndex > m_width * m_height || pixelBufferIndex < 0) {
+    if (util::outOfBounds(x, y, m_width, m_height)) {
         return;
     }
 
@@ -58,6 +61,43 @@ void Screen::setPixel(int x, int y, uint8_t r, uint8_t g, uint8_t b, uint8_t alp
     pixelBuffer[pixelBufferIndex] = result;
 }
 
+void Screen::boxBlur() {
+    Uint32 *temp = pixelBuffer;
+    pixelBuffer = blurBuffer;
+    blurBuffer = temp;
+
+    for (int x = 0; x < m_width; ++x) {
+        for (int y = 0; y < m_height; ++y) {
+            int tRed = 0;
+            int tGreen = 0;
+            int tBlue = 0;
+
+            for (int col = x - 1; col <= x + 1; ++col) {
+                for (int row = y - 1; row <= y + 1; ++row) {
+                    if (util::outOfBounds(x, y, m_width, m_height)) continue;
+
+
+                    Uint32 colour = pixelBuffer[col + row * m_width];
+                    Uint8 red = colour >> 24;
+                    Uint8 green = colour >> 16;
+                    Uint8 blue = colour >> 8;
+
+                    tRed += red;
+                    tGreen += green;
+                    tBlue += blue;
+                }
+            }
+
+            tRed /= 9;
+            tGreen /= 9;
+            tBlue /= 9;
+
+            setPixel(x, y, tRed, tGreen, tBlue);
+        }
+    }
+}
+
 void Screen::clear() const {
     std::memset(pixelBuffer, 0x00, m_width * m_height * sizeof(Uint32));
+    std::memset(blurBuffer, 0x00, m_width * m_height * sizeof(Uint32));
 }

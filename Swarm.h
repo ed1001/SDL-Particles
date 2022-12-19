@@ -9,7 +9,9 @@
 
 class Swarm {
 public:
-    static const int N_PARTICLES = 10000;
+    static const int N_PARTICLES = 5000;
+    static const bool BOUNCE = false;
+    static const bool RENDER_TAIL = false;
     Particle *particles;
 
 public:

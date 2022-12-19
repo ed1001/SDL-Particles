@@ -17,7 +17,7 @@ public:
 
 private:
     double direction;
-    int min_velocity = -1000;
-    int max_velocity = 1000;
+    int min_velocity = -2000;
+    int max_velocity = 2000;
 };
 

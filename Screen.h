@@ -17,6 +17,7 @@ public:
     SDL_Renderer *renderer = nullptr;
     SDL_Texture *texture = nullptr;
     Uint32 *pixelBuffer = nullptr;
+    Uint32 *blurBuffer = nullptr;
 
 public:
     Screen(int height, int width);
@@ -30,5 +31,7 @@ public:
     void setPixel(int x, int y, uint8_t r, uint8_t g, uint8_t b, uint8_t alpha = 0xff) const;
 
     void update() const;
+
+    void boxBlur();
 };
 

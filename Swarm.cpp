@@ -2,6 +2,7 @@
 // Created by Edward Phillips on 11/12/2022.
 //
 
+#include "iostream"
 #include "Swarm.h"
 
 Swarm::Swarm() {
@@ -24,6 +25,11 @@ void Swarm::animate() const {
 
         position.x += velocity.x;
         position.y += velocity.y;
+
+
+        if (!Swarm::BOUNCE) {
+            continue;
+        }
 
         bool outOfXBounds = position.x < 0 || position.x > util::SCREEN_WIDTH;
         bool outOfYBounds = position.y < 0 || position.y > util::SCREEN_HEIGHT;
